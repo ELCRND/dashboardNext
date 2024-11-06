@@ -1,0 +1,44 @@
+.container {
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bgSoft);
+
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--textSoft);
+    text-transform: capitalize;
+  }
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+
+  .search {
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #2e374a;
+
+    input {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      font-size: 18px;
+      color: var(--text);
+    }
+  }
+
+  .icons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+}

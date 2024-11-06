@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+}
+
+.menu {
+  min-height: 100vh;
+  flex: 1;
+  border-radius: 0 0 8px 0;
+  background-color: var(--bgSoft);
+  padding: 20px;
+}
+.content {
+  flex: 4;
+  padding: 20px;
+}
