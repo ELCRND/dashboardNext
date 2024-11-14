@@ -3,8 +3,15 @@ import Search from "../Users/Search/Search";
 import styles from "./products.module.css";
 import Image from "next/image";
 import Pagination from "../Users/Pagination/Pagination";
+import { fetchProducts } from "@/app/lib/data";
+import { IProduct, ISearchParams } from "@/app/types";
+import { removeProduct } from "@/app/lib/actions";
 
-const Products = () => {
+const Products = async ({ searchParams }: ISearchParams) => {
+  const params = await searchParams;
+  const q = params?.q || "";
+  const page = params?.page || "1";
+  const { products, quantProducts } = await fetchProducts(q, page);
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -26,27 +33,36 @@ const Products = () => {
         </thead>
 
         <tbody>
-          <tr>
-            <td>
-              <div className={styles.product}>
-                <Image src={"/noproduct.jpg"} alt="" width={40} height={40} />
-                <span>IPhone</span>
-              </div>
-            </td>
-            <td>Desc</td>
-            <td>$999</td>
-            <td>13.01.2022</td>
-            <td>72</td>
-            <td className={styles.buttons}>
-              <Link href={"/"}>
-                <button className={`${styles.button} ${styles.view}`}>View</button>
-              </Link>
-              <button className={`${styles.button} ${styles.delete}`}>Delete</button>
-            </td>
-          </tr>
+          {products.map((product: IProduct) => {
+            return (
+              <tr key={product.id}>
+                <td>
+                  <div className={styles.product}>
+                    <Image src={"/noproduct.jpg"} alt="" width={40} height={40} />
+                    <span>{product.title}</span>
+                  </div>
+                </td>
+                <td>{product.desc}</td>
+                <td>${product.price}</td>
+                <td>{product.createdAt.toString().slice(4, 16)}</td>
+                <td>{product.stock}</td>
+                <td className={styles.buttons}>
+                  <Link href={`products/${product.id}`}>
+                    <button className={`${styles.button} ${styles.view}`}>View</button>
+                  </Link>
+                  <form action={removeProduct}>
+                    <input type="hidden" name="id" defaultValue={product.id} />
+                    <button className={`${styles.button} ${styles.delete}`}>
+                      Delete
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination max={quantProducts} />
     </div>
   );
 };

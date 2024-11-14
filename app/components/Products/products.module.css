@@ -31,7 +31,11 @@
   width: 100%;
 
   td {
+    max-width: 100px;
     padding: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -45,6 +49,11 @@
   }
 }
 
+.buttons {
+  form {
+    display: inline;
+  }
+}
 .button {
   padding: 4px 8px;
   border: none;

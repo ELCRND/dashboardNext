@@ -1,7 +1,8 @@
 import SingleProduct from "@/app/components/Products/SingleProduct/SingleProduct";
+import { ISearchParams } from "@/app/types";
 
-const SingleProductPage = () => {
-  return <SingleProduct />;
+const SingleProductPage = ({ params }: ISearchParams) => {
+  return <SingleProduct params={params} />;
 };
 
 export default SingleProductPage;
